@@ -73,7 +73,7 @@ def predict(input_img):
     
     json_file, json_text = generate_json(detected_objects)
 
-    return input_img, {obj.display_name: obj.score for obj in detected_objects}, json_text, json_file
+    return input_img, {obj.display_name: obj.score for obj in detected_objects}, json_file, json_text
 
 example_images = [
     os.path.join("./examples", img) for img in os.listdir("./examples") if img.lower().endswith(('png', 'jpg', 'jpeg'))
@@ -85,8 +85,8 @@ gradio_app = gr.Interface(
     outputs=[
         gr.Image(label="Processed Image"), 
         gr.Label(label="Result", num_top_classes=2),
-        gr.Textbox(label="Copy JSON Text", lines=10),
-        gr.File(label="Download JSON")
+        gr.File(label="Download JSON"),
+        gr.Textbox(label="Copy JSON Text", lines=10)
     ],
     title="License Plate Detection",
     examples=example_images,
