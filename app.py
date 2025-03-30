@@ -73,7 +73,7 @@ def predict(input_img):
     
     json_file, json_text = generate_json(detected_objects)
 
-    return input_img, {obj.display_name: obj.score for obj in detected_objects}, json_file, json_text
+    return input_img, {obj.display_name: obj.score for obj in detected_objects}, json_text, json_file
 
 example_images = [
     os.path.join("./examples", img) for img in os.listdir("./examples") if img.lower().endswith(('png', 'jpg', 'jpeg'))
