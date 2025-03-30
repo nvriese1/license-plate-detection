@@ -16,7 +16,7 @@ class ObjectDetectionConfig(BaseModel):
 	
 	# Class specific inputs
 	class_map: Dict = {0: 'license-plates', 1: 'License_Plate'}
-	display_map: Dict = {0: 'license-plates', 1: 'License_Plate'}
+	display_map: Dict = {0: 'license-plate', 1: 'license-plate'}
 	color_map: Dict = {0: (186, 223, 255), 1: (100, 255, 255)}
 
 class Detection:
@@ -182,15 +182,14 @@ class Detection:
 
 		centroid: np.ndarray = self.centroid()[0]
 		centroid_coords: Tuple[int, int] = (int(centroid[0]), int(centroid[1]))
+		if centroid_color is None:
+			centroid_color = self.color_centroid
+		if centroid_radius is None:
+			centroid_radius = self.radius_centroid
+		if centroid_thickness is None:
+			centroid_thickness = self.thickness_centroid
 
 		if draw_centroids:
-
-			if centroid_color is None:
-				centroid_color = self.color_centroid
-			if centroid_radius is None:
-				centroid_radius = self.radius_centroid
-			if centroid_thickness is None:
-				centroid_thickness = self.thickness_centroid
 	
 			cv2.circle(
 				image_processed,
