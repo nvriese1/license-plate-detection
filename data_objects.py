@@ -202,11 +202,14 @@ class Detection:
 
 		if draw_text:
 	
-			display_text: str = str(self.display_name).capitalize()
+			display_text: str = str(self.display_name)
 			text_position: Tuple[int, int] = (
 				centroid_coords[0] + text_position_xy[0], 
 				centroid_coords[1] + text_position_xy[1]
 			)
+
+			if hasattr(self, "score") and self.score:
+				display_text += f" ({self.score})"
 		
 			if hasattr(self, "status") and self.status:
 				display_text += f" ({self.status})"
