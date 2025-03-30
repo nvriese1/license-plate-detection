@@ -180,9 +180,10 @@ class Detection:
 				tipLength=0.2
 			)
 
+		centroid: np.ndarray = self.centroid()[0]
+		centroid_coords: Tuple[int, int] = (int(centroid[0]), int(centroid[1]))
+
 		if draw_centroids:
-			centroid: np.ndarray = self.centroid()[0]
-			centroid_coords: Tuple[int, int] = (int(centroid[0]), int(centroid[1]))
 
 			if centroid_color is None:
 				centroid_color = self.color_centroid
