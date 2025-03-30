@@ -209,7 +209,7 @@ class Detection:
 			)
 
 			if hasattr(self, "score") and self.score:
-				display_text += f" ({self.score})"
+				display_text += f" ({round(self.score, 2)})"
 		
 			if hasattr(self, "status") and self.status:
 				display_text += f" ({self.status})"
