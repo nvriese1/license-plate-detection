@@ -60,12 +60,12 @@ def predict(input_img):
         input_img = obj.draw(
             image=input_img,
             draw_boxes=True,
-            draw_centroids=True,
+            draw_centroids=False,
             draw_text=True,
             draw_projections=False,
             box_display_type="minimal",
-            fill_text_background=False,
-            box_line_thickness=4,
+            fill_text_background=True,
+            box_line_thickness=2,
             box_corner_length=15,
             text_scale=0.6,
             obfuscate_classes=[],
@@ -93,4 +93,4 @@ gradio_app = gr.Interface(
 )
 
 if __name__ == "__main__":
-    gradio_app.launch()
+    gradio_app.launch(share=True)
