@@ -1,4 +1,5 @@
 import os
+import json
 import gradio as gr
 import onnxruntime as ort
 
@@ -21,6 +22,21 @@ object_detector = YOLOXDetector(
 	providers=["CoreMLExecutionProvider", "CPUExecutionProvider"],
 	sess_options=sess_options,
 )
+
+def generate_json(detected_objects):
+    detections_list = []
+    for obj in detected_objects:
+        detections_list.append({
+            "class_name": obj.display_name,
+            "score": obj.score,
+            "bbox_xyxy": obj.points_xyxy.tolist()
+        })
+
+    json_data = json.dumps(detections_list, indent=4)
+    with open("detections.json", "w") as f:
+        f.write(json_data)
+
+    return "detections.json", json_data
 
 def predict(input_img):
 
@@ -54,8 +70,10 @@ def predict(input_img):
             text_scale=0.6,
             obfuscate_classes=[],
         )
+    
+    json_file, json_text = generate_json(detected_objects)
 
-    return input_img, {obj.display_name: obj.score for obj in detected_objects} 
+    return input_img, {obj.display_name: obj.score for obj in detected_objects}, json_file, json_text
 
 example_images = [
     os.path.join("./examples", img) for img in os.listdir("./examples") if img.lower().endswith(('png', 'jpg', 'jpeg'))
@@ -64,7 +82,12 @@ example_images = [
 gradio_app = gr.Interface(
     predict,
     inputs=gr.Image(label="Select image to process", sources=['upload', 'webcam'], type="numpy"),
-    outputs=[gr.Image(label="Processed Image"), gr.Label(label="Result", num_top_classes=2)],
+    outputs=[
+        gr.Image(label="Processed Image"), 
+        gr.Label(label="Result", num_top_classes=2),
+        gr.File(label="Download JSON"),
+        gr.Textbox(label="Copy JSON Text", lines=10)
+    ],
     title="License Plate Detection",
     examples=example_images,
 )
