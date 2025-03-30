@@ -64,7 +64,7 @@ def predict(input_img):
             draw_text=True,
             draw_projections=False,
             box_display_type="minimal",
-            fill_text_background=True,
+            fill_text_background=False,
             box_line_thickness=2,
             box_corner_length=15,
             text_scale=0.6,
