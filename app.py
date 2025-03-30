@@ -85,12 +85,12 @@ gradio_app = gr.Interface(
     outputs=[
         gr.Image(label="Processed Image"), 
         gr.Label(label="Result", num_top_classes=2),
-        gr.File(label="Download JSON"),
-        gr.Textbox(label="Copy JSON Text", lines=10)
+        gr.Textbox(label="Copy JSON Text", lines=10),
+        gr.File(label="Download JSON")
     ],
     title="License Plate Detection",
     examples=example_images,
 )
 
 if __name__ == "__main__":
-    gradio_app.launch(share=True)
+    gradio_app.launch()
