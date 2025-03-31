@@ -11,4 +11,4 @@ license: apache-2.0
 short_description: Detect license plates in street-level images.
 ---
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+Detect license plates in street-level imagery. Live demo available for inference @ [HuggingFace Spaces](https://huggingface.co/spaces/nvriese1/license-plate-detection).
